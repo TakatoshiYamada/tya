@@ -1,20 +1,20 @@
-# ベースイメージの指定
-FROM node:14
+# Node.jsの公式イメージをベースとする
+FROM node:latest
 
-# アプリケーションディレクトリの設定
-WORKDIR /usr/src/app
+# /appディレクトリを作業ディレクトリとする
+WORKDIR /app
 
-# 依存関係ファイルをコピー
+# package.jsonとpackage-lock.jsonを/appにコピー
 COPY package*.json ./
 
-# 依存関係のインストール
+# 依存関係をインストール
 RUN npm install
 
-# アプリケーションのソースをコピー
+# アプリケーションのソースコードをコンテナにコピー
 COPY . .
 
 # アプリケーションがリッスンするポートを指定
 EXPOSE 3000
 
-# アプリケーションの起動
-CMD ["npm", "start"]
+# アプリケーションを起動
+CMD ["node", "app.js"]
